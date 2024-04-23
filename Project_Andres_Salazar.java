@@ -1,46 +1,43 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Project_Andres_Salazar
-{
+public class Project_Andres_Salazar {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // Create an ArrayList to store Policy objects
+        ArrayList<Policy> policies = new ArrayList<>();
 
-        // Ask user to enter necessary information
-        System.out.println("Enter policy number:");
-        int policyNumber = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        System.out.println("Enter provider name:");
-        String providerName = scanner.nextLine();
-        System.out.println("Enter policyholder's first name:");
-        String firstName = scanner.nextLine();
-        System.out.println("Enter policyholder's last name:");
-        String lastName = scanner.nextLine();
-        System.out.println("Enter policyholder's age:");
-        int age = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-        System.out.println("Enter policyholder's smoking status (smoker/non-smoker):");
-        String smokingStatus = scanner.nextLine();
-        System.out.println("Enter policyholder's height (in inches):");
-        int height = scanner.nextInt();
-        System.out.println("Enter policyholder's weight (in pounds):");
-        int weight = scanner.nextInt();
+        // Read policy information from the text file
+        try {
+            File file = new File("PolicyInformation.txt");
+            Scanner scanner = new Scanner(file);
 
-        // Create instance of Policy class using constructor with arguments
-        Policy policy = new Policy(policyNumber, providerName, firstName, lastName, age, smokingStatus, height, weight);
+            while (scanner.hasNextLine()) {
+                int policyNumber = Integer.parseInt(scanner.nextLine());
+                String providerName = scanner.nextLine();
+                String firstName = scanner.nextLine();
+                String lastName = scanner.nextLine();
+                int age = Integer.parseInt(scanner.nextLine());
+                String smokingStatus = scanner.nextLine();
+                int height = Integer.parseInt(scanner.nextLine());
+                int weight = Integer.parseInt(scanner.nextLine());
 
-        // Display information about the policy
-        System.out.println("\nPolicy Information:");
-        System.out.println("Policy Number: " + policy.getPolicyNumber());
-        System.out.println("Provider Name: " + policy.getProviderName());
-        System.out.println("Policyholder's First Name: " + policy.getPolicyHolderFirstName());
-        System.out.println("Policyholder's Last Name: " + policy.getPolicyHolderLastName());
-        System.out.println("Policyholder's Age: " + policy.getPolicyHolderAge());
-        System.out.println("Policyholder's Smoking Status: " + policy.getPolicyHolderSmokingStatus());
-        System.out.println("Policyholder's Height (in inches): " + policy.getPolicyHolderHeightInches());
-        System.out.println("Policyholder's Weight (in pounds): " + policy.getPolicyHolderWeightPounds());
-        System.out.printf("Policyholder's BMI: %.2f\n", policy.calculateBMI());
-        System.out.printf("Policy Price: $%.2f\n", policy.calculatePolicyPrice());
+                // Create a Policy object with the read information
+                Policy policy = new Policy(policyNumber, providerName, firstName, lastName, age, smokingStatus, height, weight);
 
-        scanner.close();
+                // Add the Policy object to the ArrayList
+                policies.add(policy);
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
+
+        // Display information about the policies
+        System.out.println("Policy Information:");
+        for (Policy policy : policies) {
+            System.out.println(policy);
+        }
     }
 }

@@ -1,9 +1,6 @@
-import java.util.Scanner;
+import java.util.Objects;
 
-public class Policy 
-{
-
-    // Attributes
+public class Policy {
     private int policyNumber;
     private String providerName;
     private String policyHolderFirstName;
@@ -13,13 +10,10 @@ public class Policy
     private int policyHolderHeightInches;
     private int policyHolderWeightPounds;
 
-    // Constructors
-
     /*
-     * Constructs a Policy object with default values.
+     * Default constructor with default values.
      */
     public Policy() {
-        // Default constructor with default values
         this.policyNumber = 0;
         this.providerName = "Default Provider";
         this.policyHolderFirstName = "John";
@@ -31,16 +25,15 @@ public class Policy
     }
 
     /*
-     * Constructs a Policy object with specified values.
-     *
-     * @param policyNumber             The policy number.
-     * @param providerName             The name of the insurance provider.
-     * @param policyHolderFirstName    The first name of the policyholder.
-     * @param policyHolderLastName     The last name of the policyholder.
-     * @param policyHolderAge          The age of the policyholder.
-     * @param policyHolderSmokingStatus    The smoking status of the policyholder.
-     * @param policyHolderHeightInches The height of the policyholder in inches.
-     * @param policyHolderWeightPounds The weight of the policyholder in pounds.
+     * Constructor with arguments.
+     * @param policyNumber The policy number.
+     * @param providerName The provider name.
+     * @param policyHolderFirstName The policy holder's first name.
+     * @param policyHolderLastName The policy holder's last name.
+     * @param policyHolderAge The policy holder's age.
+     * @param policyHolderSmokingStatus The policy holder's smoking status.
+     * @param policyHolderHeightInches The policy holder's height in inches.
+     * @param policyHolderWeightPounds The policy holder's weight in pounds.
      */
     public Policy(int policyNumber, String providerName, String policyHolderFirstName, String policyHolderLastName,
                   int policyHolderAge, String policyHolderSmokingStatus, int policyHolderHeightInches,
@@ -55,14 +48,9 @@ public class Policy
         this.policyHolderWeightPounds = policyHolderWeightPounds;
     }
 
-    // Getter and Setter methods (omitted for brevity)
-
-    // Other methods
-
     /*
-     * Calculates the BMI (Body Mass Index) of the policyholder.
-     *
-     * @return The BMI of the policyholder.
+     * Calculates the BMI (Body Mass Index) of the policy holder.
+     * @return The BMI of the policy holder.
      */
     public double calculateBMI() {
         double heightInchesSquared = Math.pow(policyHolderHeightInches, 2);
@@ -71,7 +59,6 @@ public class Policy
 
     /*
      * Calculates the price of the insurance policy.
-     *
      * @return The price of the insurance policy.
      */
     public double calculatePolicyPrice() {
@@ -92,11 +79,7 @@ public class Policy
         return baseFee + additionalFee;
     }
 
-    /*
-     * Returns a string representation of the Policy object.
-     *
-     * @return A string representation of the Policy object.
-     */
+    // toString method
     @Override
     public String toString() {
         return "Policy{" +
@@ -110,4 +93,5 @@ public class Policy
                 ", policyHolderWeightPounds=" + policyHolderWeightPounds +
                 '}';
     }
+
 }

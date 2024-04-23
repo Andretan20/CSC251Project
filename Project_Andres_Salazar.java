@@ -5,12 +5,19 @@ import java.util.Scanner;
 
 public class Project_Andres_Salazar {
     public static void main(String[] args) {
-        // Create an ArrayList to store Policy objects
+        ArrayList<Policy> policies = readPoliciesFromFile("PolicyInformation.txt");
+
+        if (policies != null) {
+            displayPolicyInformation(policies);
+            displaySmokersAndNonSmokers(policies);
+        }
+    }
+
+    private static ArrayList<Policy> readPoliciesFromFile(String filename) {
         ArrayList<Policy> policies = new ArrayList<>();
 
-        // Read policy information from the text file
         try {
-            File file = new File("PolicyInformation.txt");
+            File file = new File(filename);
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
@@ -23,21 +30,38 @@ public class Project_Andres_Salazar {
                 int height = Integer.parseInt(scanner.nextLine());
                 int weight = Integer.parseInt(scanner.nextLine());
 
-                // Create a Policy object with the read information
                 Policy policy = new Policy(policyNumber, providerName, firstName, lastName, age, smokingStatus, height, weight);
-
-                // Add the Policy object to the ArrayList
                 policies.add(policy);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
+            return null;
         }
 
-        // Display information about the policies
+        return policies;
+    }
+
+    private static void displayPolicyInformation(ArrayList<Policy> policies) {
         System.out.println("Policy Information:");
         for (Policy policy : policies) {
             System.out.println(policy);
         }
+    }
+
+    private static void displaySmokersAndNonSmokers(ArrayList<Policy> policies) {
+        int smokers = 0;
+        int nonSmokers = 0;
+
+        for (Policy policy : policies) {
+            if ("smoker".equalsIgnoreCase(policy.getPolicyHolderSmokingStatus())) {
+                smokers++;
+            } else {
+                nonSmokers++;
+            }
+        }
+
+        System.out.println("Number of Smokers: " + smokers);
+        System.out.println("Number of Non-Smokers: " + nonSmokers);
     }
 }
